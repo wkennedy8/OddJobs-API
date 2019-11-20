@@ -1,0 +1,4 @@
+mkdir -p ../app/models
+# copy existing models
+rsync -azvpr app/models/ ../app/models
+rm ./app/models/*
