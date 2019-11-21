@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 IMAGE_PLACEHOLDER = "https://placeholder.apps.selfip.com/image/200x200/"
 
+CATEGORIES = ['']
 def random_cvc()
     digits = (0..9).to_a
     3.times.map{digits.sample}.join
