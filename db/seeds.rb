@@ -22,6 +22,28 @@ end
 def random_status
     ['started', 'in progress', 'completed'].sample
 end
+
+def random_category 
+    [
+        'Plumbing', 
+        'Errand Running', 
+        'Pool Cleaning', 
+        'Plumbing', 
+        'Pet Care', 
+        'Moving', 
+        'Mounting', 
+        'Lawn Care', 
+        'House Painting', 
+        'Home Repairs', 
+        'Furniture Assembly', 
+        'Electrical', 
+        'House Cleaning', 
+        'Carpentry', 
+        'Car Wash', 
+        'Babysitting' 
+    ].sample 
+end
+
 user = User.create!(email: 'example@mail.com' , password: '123123123' , password_confirmation: '123123123')
 p user
 city = City.find_or_create_by!(name: "Miami")
@@ -36,7 +58,8 @@ user_profile = UserProfile.create!(first_name: Faker::Name.first_name, last_name
     phone = Phone.create!(kind: (1..3).to_a.sample, value: Faker::PhoneNumber.phone_number, user_profile: user_profile) 
     p phone
 end
-user_image = UserImage.create!(url: IMAGE_PLACEHOLDER, user_profile: user_profile)
+
+user_image = UserImage.find_or_create_by!(url: IMAGE_PLACEHOLDER, user_profile: user_profile)
 p user_image
 
 3.times do
@@ -47,14 +70,38 @@ p user_image
     )
     p cc
 end
-100.times do 
-    contractor = Contractor.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, background_check: random_boolean)
+30.times do 
+    contractor = Contractor.create!(
+        first_name: Faker::Name.first_name, 
+        last_name: Faker::Name.last_name, 
+        background_check: random_boolean
+    )
     p contractor
-    contractor_image = ContractorImage.create!(url: IMAGE_PLACEHOLDER, contractor: contractor)
-    rating = Rating.create!(value: random_rating, review_text: Faker::Lorem.paragraph, contractor: contractor, user_profile: user_profile) 
+    contractor_image = ContractorImage.create!(
+        url: IMAGE_PLACEHOLDER, 
+        contractor: contractor
+    )
+    rating = Rating.create!(
+        value: random_rating, 
+        review_text: Faker::Lorem.paragraph, 
+        contractor: contractor, 
+        user_profile: user_profile
+    ) 
     p contractor_image
-    contract = Contract.create!(contractor: contractor, status: random_status, user_profile: user_profile)
-    job_category = JobCategory.find_or_create_by!(name: Faker::Lorem.word)
-    job_posting = JobPosting.create!(description: Faker::Lorem.paragraph, title: Faker::Lorem.sentence, contract: contract, job_category: job_category, user_profile: user_profile)
-    contractor.job_categories << job_category
+    contract = Contract.create!(
+        contractor: contractor, 
+        status: random_status, 
+        user_profile: user_profile
+    )
+    (1..5).to_a.sample.times do
+        job_category = JobCategory.find_or_create_by!(name: random_category)
+        contractor.job_categories << job_category
+        job_posting = JobPosting.create!(
+            description: Faker::Lorem.paragraph, 
+            title: Faker::Lorem.sentence, 
+            contract: contract, 
+            job_category: job_category, 
+            user_profile: user_profile
+        )
+    end
 end
