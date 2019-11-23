@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :job_postings
   resources :contracts
   resources :job_category_contractors
-  resources :job_categories
+  resources :job_categories do
+    resources :contractors, controller: "job_categories/contractors"
+  end
   resources :contractors
   resources :user_profiles
   resources :addresses
