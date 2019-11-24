@@ -25,22 +25,21 @@ end
 
 def random_category 
     [
-        'Plumbing', 
-        'Errand Running', 
-        'Pool Cleaning', 
-        'Plumbing', 
-        'Pet Care', 
-        'Moving', 
-        'Mounting', 
-        'Lawn Care', 
-        'House Painting', 
-        'Home Repairs', 
-        'Furniture Assembly', 
-        'Electrical', 
-        'House Cleaning', 
-        'Carpentry', 
-        'Car Wash', 
-        'Babysitting' 
+        { name: 'Errand Running', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/run_errands_tile.png" },
+        { name: 'Pool Cleaning', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/pool_cleaning_tile.png" },
+        { name: 'Plumbing', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/plumbing_tile.png" },
+        { name: 'Pet Care', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/pet_care_tile.png" }, 
+        { name: 'Moving', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/moving_tile.png" },
+        { name: 'Mounting', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/mounting_tile.png" },
+        { name: 'Lawn Care', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/Lawn_care_tile.png" },
+        { name: 'House Painting', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/house_painting_tile.png" },
+        { name: 'Home Repairs', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/home_repairs_tile.png" },
+        { name: 'Furniture Assembly', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/furniture_assembly_tile.png" },
+        { name: 'Electrical', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/Electrical_tile.png" },
+        { name: 'House Cleaning', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/cleaning tile.png" },
+        { name: 'Carpentry', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/carpentry_tile.png" },
+        { name: 'Car Wash', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/car_was_tile.png" },
+        { name: 'Babysitting', image_url: "https://leo.nyc3.digitaloceanspaces.com/oddjobs/babysitting_tile.png" },
     ].sample 
 end
 
@@ -60,7 +59,6 @@ user_profile = UserProfile.create!(first_name: Faker::Name.first_name, last_name
 end
 
 user_image = UserImage.find_or_create_by!(url: IMAGE_PLACEHOLDER, user_profile: user_profile)
-p user_image
 
 3.times do
     cc = CreditCard.create!(card_number: Faker::Business.credit_card_number,
@@ -76,7 +74,6 @@ end
         last_name: Faker::Name.last_name, 
         background_check: random_boolean
     )
-    p contractor
     contractor_image = ContractorImage.create!(
         url: IMAGE_PLACEHOLDER, 
         contractor: contractor
@@ -87,14 +84,14 @@ end
         contractor: contractor, 
         user_profile: user_profile
     ) 
-    p contractor_image
     contract = Contract.create!(
         contractor: contractor, 
         status: random_status, 
         user_profile: user_profile
     )
     (1..5).to_a.sample.times do
-        job_category = JobCategory.find_or_create_by!(name: random_category)
+        category = random_category
+        job_category = JobCategory.find_or_create_by!(name: category[:name], image_url: category[:image_url])
         contractor.job_categories << job_category
         job_posting = JobPosting.create!(
             description: Faker::Lorem.paragraph, 
