@@ -5,7 +5,17 @@ class ContractorsController < ApplicationController
   def index
     @contractors = Contractor.all
 
-    render json: @contractors
+    render json: {
+      contractors: @contractors.map do |contractor|
+        {
+          id: contractor.id
+          first_name: contractor.first_name,
+          last_name: contractor.last_name,
+          background_check: contractor.background_check,
+          contractor_image: contractor.contractor_image.url,
+        }
+      end
+    }
   end
 
   # GET /contractors/1
