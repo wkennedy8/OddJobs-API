@@ -8,7 +8,7 @@ class ContractorsController < ApplicationController
     render json: {
       contractors: @contractors.map do |contractor|
         {
-          id: contractor.id
+          id: contractor.id,
           first_name: contractor.first_name,
           last_name: contractor.last_name,
           background_check: contractor.background_check,
