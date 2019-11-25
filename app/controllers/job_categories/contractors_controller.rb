@@ -12,6 +12,7 @@ module JobCategories
                         last_name: contractor.last_name,
                         background_check: contractor.background_check,
                         contractor_image: contractor.contractor_image.url,
+                        address: contractor.address
                     }
                 end
             }

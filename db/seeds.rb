@@ -6,6 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 IMAGE_PLACEHOLDER = "https://placeholder.apps.selfip.com/image/200x200/"
+SAMPLE_ADDRESSES = [
+"2650 NW 5 ave Miami, FL 33127", "9621 Fontainebleau Blvd. Miami, FL 33172", "1865 79 st CSWY North Bay Village, FL 33141", "1855 Purdy Ave Miami Beach, FL 33139", 
+"251 NW 25th St, Miami, FL 33127", "9999 NE 2nd Ave, Miami Shores, FL 33138", "1425 NE 163rd St, North Miami Beach, FL 33162", "1255 W 49th St, Hialeah, FL 33012", "15504 Biscayne Blvd, North Miami Beach, FL 33160",
+"358 San Lorenzo Ave, Coral Gables, FL 33146", "12705 NW 42nd Ave, Opa-locka, FL 33054", "5050 SW 90th Ave, Cooper City, FL 33328", "3251 S Miami Ave, Miami, FL 33129", 
+"5555 Collins Ave, Miami Beach, FL 33140", "9700 Collins Ave, Bal Harbour, FL 33154", "11300 NE 2nd Ave, Miami Shores, FL 33161", "3555 SW 8th St, Miami, FL 33135", "2200 E 4th Ave, Hialeah, FL 33013",
+"S 20th Ave, Hollywood, FL 33020", "1005 Joe DiMaggio Dr, Hollywood, FL 33021", "11960 Pines Blvd, Pembroke Pines, FL 33026", "3252 SW 22nd St, Miami, FL 33145", "1099 NE 79th St, Miami, FL 33138", 
+"465 Brickell Ave, Miami, FL 33131", "668 NW 5th St, Miami, FL 33128", "4870 Biscayne Blvd, Miami, FL 33137", "1100 NW 95th St, Miami, FL 33150", "4041 Collins Ave, Miami Beach, FL 33140", "1073 95th St, Bay Harbor Islands, FL 33154",
+"650 NW 71st St, Miami, FL 33150" 
+]
 
 CATEGORIES = ['']
 def random_cvc()
@@ -72,6 +81,7 @@ end
     contractor = Contractor.create!(
         first_name: Faker::Name.first_name, 
         last_name: Faker::Name.last_name, 
+        address: SAMPLE_ADDRESSES.sample,
         background_check: random_boolean
     )
     contractor_image = ContractorImage.create!(
