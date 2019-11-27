@@ -14,6 +14,13 @@ class ContractorsController < ApplicationController
           address: contractor.address,
           background_check: contractor.background_check,
           contractor_image: contractor.contractor_image.url,
+          ratings: contractor.ratings.map do |rating|
+            {
+              id: rating.id,
+              value: rating.value,
+              review_text: rating.review_text
+            }
+          end
         }
       end
     }
@@ -21,7 +28,23 @@ class ContractorsController < ApplicationController
 
   # GET /contractors/1
   def show
-    render json: @contractor
+    render json: {
+      contractor: {
+        id: @contractor.id,
+        first_name: @contractor.first_name,
+        last_name: @contractor.last_name,
+        address: @contractor.address,
+        background_check: @contractor.background_check,
+        contractor_image: @contractor.contractor_image.url,
+        ratings: @contractor.ratings.map do |rating|
+          {
+            id: rating.id,
+            value: rating.value,
+            review_text: rating.review_text
+          }
+        end
+      }
+    }
   end
 
   # POST /contractors
