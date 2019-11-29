@@ -16,7 +16,7 @@ class RatingsController < ApplicationController
   # POST /ratings
   def create
     @rating = Rating.new(rating_params)
-
+    @rating.user_profile = UserProfile.last;
     if @rating.save
       render json: @rating, status: :created, location: @rating
     else
@@ -46,6 +46,6 @@ class RatingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def rating_params
-      params.require(:rating).permit(:value, :review_text, :user_profile_id, :contractor_id)
+      params.require(:rating).permit(:value, :review_text, :contractor_id)
     end
 end
